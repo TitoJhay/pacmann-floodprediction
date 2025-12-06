@@ -164,16 +164,14 @@ if 'show_review' not in st.session_state:
 
 def load_model():
     """Load model prediksi"""
+    import traceback
     try:
         with open('best_flood_prediction_model.pkl', 'rb') as f:
             return pickle.load(f)
 
-    except ModuleNotFoundError as e:
-        st.error(f"❗ Module yang hilang saat load model: {e}")
-        raise
-
     except Exception as e:
-        st.error(f"❗ Error lain saat load model: {e}")
+        st.error("❗ Terjadi error saat memuat model:")
+        st.exception(e)   # << tampilkan pesan lengkap
         raise
 
 def save_form_data(category, data):
