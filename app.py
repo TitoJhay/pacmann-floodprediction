@@ -166,11 +166,15 @@ def load_model():
     """Load model prediksi"""
     try:
         with open('best_flood_prediction_model.pkl', 'rb') as f:
-            model = pickle.load(f)
-        return model
-    except FileNotFoundError:
-        st.error("⚠️ Model tidak ditemukan! Pastikan file 'best_flood_prediction_model.pkl' ada di direktori yang sama.")
-        return None
+            return pickle.load(f)
+
+    except ModuleNotFoundError as e:
+        st.error(f"❗ Module yang hilang saat load model: {e}")
+        raise
+
+    except Exception as e:
+        st.error(f"❗ Error lain saat load model: {e}")
+        raise
 
 def save_form_data(category, data):
     """Simpan data form untuk kategori tertentu"""
